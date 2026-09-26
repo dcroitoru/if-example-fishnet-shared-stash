@@ -1,8 +1,6 @@
-using System;
 using System.Linq;
 using FishNet.Connection;
 using FishNet.Object;
-using FishNet.Object.Synchronizing;
 using GDS.Core;
 using GDS.Core.Events;
 using UnityEngine;
@@ -14,38 +12,7 @@ namespace GDS.Examples {
 
         [SerializeField] NetworkListBag networkBag;
 
-        // public ListBag SharedStash = new() { Size = 20 };
-
-        // TODO: sync stash on new client connect
-        // readonly SyncList<Item> sharedStashSync = new();
-
-
-
-        // public override void OnStartServer() {
-        //     base.OnStartServer();
-        //     Debug.Log($"on start server, should populate sync list {SharedStash.Slots.CommaJoin()}");
-        //     sharedStashSync.Clear();
-        //     sharedStashSync.AddRange(SharedStash.Slots.Select(s => s.Item).ToList());
-
-        // }
-
-        // public override void OnStartClient() {
-        //     base.OnStartClient();
-        //     Debug.Log($"on start client, should show stash items: {sharedStashSync.CommaJoin()}");
-        // }
-
-        // private void OnSharedStashSyncChange(SyncListOperation op, int index, Item oldItem, Item newItem, bool asServer) {
-        //     if (op != SyncListOperation.Set) return;
-        //     var slot = SharedStash.Slots[index];
-        //     SharedStash.ReplaceAt(slot, newItem);
-        // }
-
         void Awake() { StoreLocator.Register(this); }
-
-        // void Start() { sharedStashSync.OnChange += OnSharedStashSyncChange; }
-
-        // void OnDestroy() { sharedStashSync.OnChange -= OnSharedStashSyncChange; }
-
 
         // Register event handlers for pick and place
         // The events are published by the DragAndDrop System

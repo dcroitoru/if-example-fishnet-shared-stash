@@ -1,12 +1,8 @@
-using System.Collections.Generic;
 using FishNet.Serializing;
 using GDS.Core;
-using UnityEngine;
 
 namespace GDS.Examples {
     public static class NetworkExtensions {
-
-
 
         public static void WriteItem(this Writer writer, Item item) {
             if (item == null) {
@@ -33,7 +29,6 @@ namespace GDS.Examples {
 
             var item = itemBase.CreateItem();
             item.StackSize = stackSize;
-            // Debug.Log($"created item {item}");
             return item;
         }
     }
