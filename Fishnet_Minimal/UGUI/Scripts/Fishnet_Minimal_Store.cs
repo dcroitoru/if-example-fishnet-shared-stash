@@ -131,9 +131,20 @@ namespace GDS.Examples {
 
         void OnPickWorldItem(PickWorldItem e) {
             Debug.Log($"should pick world item {e.WorldItem}");
-            // Result result = inventory.Bag.Add(e.WorldItem.Item);
-            // if (result is Success) Bus.Publish(new DespawnWorldItem(e.WorldItem));
-            // Bus.Publish(result);
+            RequestDespawnItem(e.WorldItem.Item, e.WorldItem.GameObject);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        void RequestDespawnItem(Item item, GameObject go, NetworkConnection sender = null) {
+            ServerManager.Despawn(go);
+            ResponseDespawnItem(sender, item);
+        }
+
+        [TargetRpc]
+        void ResponseDespawnItem(NetworkConnection sender, Item item) {
+            Result result = inventory.Bag.Add(item);
+            Bus.Publish(result);
+
         }
     }
 
