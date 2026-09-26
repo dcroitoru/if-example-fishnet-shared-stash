@@ -12,7 +12,6 @@ namespace GDS.Examples {
         public static List<ItemBase> ItemBaseRegistry;
 
         [SerializeField] ItemBaseCatalogSO ItemBaseCatalog;
-        [SerializeField] TextMeshProUGUI textField;
         [SerializeField] ListBagView inventoryView;
         [SerializeField] ListBagView stashView;
 

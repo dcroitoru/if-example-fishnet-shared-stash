@@ -1,8 +1,10 @@
+using System;
 using System.Linq;
 using FishNet.Connection;
 using FishNet.Object;
 using GDS.Core;
 using GDS.Core.Events;
+using GDS.Core.UGUI;
 using UnityEngine;
 
 namespace GDS.Examples {
@@ -10,7 +12,11 @@ namespace GDS.Examples {
 
     public class Fishnet_Minimal_Store : NetworkStore {
 
+        [SerializeField] ListBagView inventory;
         [SerializeField] NetworkListBag networkBag;
+
+        [SerializeField] private NetworkObject itemPrefab;
+
 
         void Awake() { StoreLocator.Register(this); }
 
@@ -19,11 +25,15 @@ namespace GDS.Examples {
         void OnEnable() {
             Bus.On<PickItem>(OnPickItem);
             Bus.On<PlaceGhostItem>(OnPlaceItem);
+            Bus.On<DropGhostItem>(OnDropItem);
+            Bus.On<PickWorldItem>(OnPickWorldItem);
         }
 
         void OnDisable() {
             Bus.Off<PickItem>(OnPickItem);
             Bus.Off<PlaceGhostItem>(OnPlaceItem);
+            Bus.Off<DropGhostItem>(OnDropItem);
+            Bus.Off<PickWorldItem>(OnPickWorldItem);
         }
 
         // On pick, remove the item from the item from the bag, update the ghost and publish the resulting event
@@ -32,17 +42,6 @@ namespace GDS.Examples {
                 RequestPickItem(e.Bag.Name, (e.Slot as ListSlot).Index);
             } else {
                 Result result = e.Context.Bag.Remove(e.Context.Item);
-                UpdateGhost(result, e.Context);
-                Bus.Publish(result);
-            }
-        }
-
-        // On place, add the ghost item to the bag, potentially swapping with the one in the target slot, then publish the resulting event
-        void OnPlaceItem(PlaceGhostItem e) {
-            if (e.Context.Bag == networkBag.Bag) {
-                RequestPlaceItem(e.Context.Bag.Name, (e.Context.Slot as ListSlot).Index, Ghost.Item);
-            } else {
-                Result result = e.Context.Bag.AddAt(e.Context.Slot, Ghost.Item);
                 UpdateGhost(result, e.Context);
                 Bus.Publish(result);
             }
@@ -64,6 +63,17 @@ namespace GDS.Examples {
             Bus.Publish(new PickItemSuccess(item));
         }
 
+        // On place, add the ghost item to the bag, potentially swapping with the one in the target slot, then publish the resulting event
+        void OnPlaceItem(PlaceGhostItem e) {
+            if (e.Context.Bag == networkBag.Bag) {
+                RequestPlaceItem(e.Context.Bag.Name, (e.Context.Slot as ListSlot).Index, Ghost.Item);
+            } else {
+                Result result = e.Context.Bag.AddAt(e.Context.Slot, Ghost.Item);
+                UpdateGhost(result, e.Context);
+                Bus.Publish(result);
+            }
+        }
+
         [ServerRpc(RequireOwnership = false)]
         public void RequestPlaceItem(string bagId, int slotIndex, Item item, NetworkConnection sender = null) {
             if (sender == null) return;
@@ -81,6 +91,49 @@ namespace GDS.Examples {
             Ghost.Notify();
             Bus.Publish(new PlaceItemSuccess(null, null));
 
+        }
+
+        void OnDropItem(DropGhostItem e) {
+            Debug.Log("1. OnDropItem");
+            if (Ghost.Empty) return;
+            if (e.IsOverUi) return;
+
+            RequestSpawnItem(Ghost.Item, e.WorldPosition);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        void RequestSpawnItem(Item item, Vector3 worldPos, NetworkConnection sender = null) {
+            Debug.Log($"2. RequestSpawnItem on server, sender={sender?.ClientId}");
+
+            NetworkObject instance = Instantiate(itemPrefab, worldPos, Quaternion.identity);
+            var worldItem = instance.GetComponent<NetworkWorldItem>();
+            worldItem.Item.Value = item;
+            ServerManager.Spawn(instance);
+            // worldItem.OnClick += OnWorldItemClick;
+
+            // if (sender == null) return;
+            // BroadcastSpawnItem(item, worldPos);
+            ResponseSpawnItem(sender);
+        }
+
+        [ObserversRpc]
+        void BroadcastSpawnItem(Item item, Vector3 worldPos) {
+            Debug.Log($"3. BroadcastSpawnItem on client {NetworkManager.ClientManager.Connection.ClientId}, item={item}");
+
+            // Debug.Log($"should spawn item {item}");
+            Bus.Publish(new SpawnWorldItem(item, worldPos));
+        }
+
+        [TargetRpc]
+        void ResponseSpawnItem(NetworkConnection sender) {
+            Ghost.Reset();
+        }
+
+        void OnPickWorldItem(PickWorldItem e) {
+            Debug.Log($"should pick world item {e.WorldItem}");
+            // Result result = inventory.Bag.Add(e.WorldItem.Item);
+            // if (result is Success) Bus.Publish(new DespawnWorldItem(e.WorldItem));
+            // Bus.Publish(result);
         }
     }
 

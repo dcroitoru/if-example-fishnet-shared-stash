@@ -238,7 +238,6 @@ GameObject:
   - component: {fileID: 3258322560959224589}
   - component: {fileID: 3309013736663908383}
   - component: {fileID: 8667794733051763422}
-  - component: {fileID: 5246392494979613820}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -383,18 +382,3 @@ MonoBehaviour:
   _componentIndexCache: 1
   _addedNetworkObject: {fileID: 3309013736663908383}
   _networkObjectCache: {fileID: 3309013736663908383}
---- !u!114 &5246392494979613820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8574668559990375571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6fc47c37180cd9408af23771208112d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterNetworkEquipment
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 3309013736663908383}
-  _networkObjectCache: {fileID: 0}

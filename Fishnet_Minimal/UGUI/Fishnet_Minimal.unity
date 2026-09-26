@@ -1010,6 +1010,18 @@ PrefabInstance:
       value: GDS.Core GDS.Core.Item
       objectReference: {fileID: 0}
     - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: 'managedReferences[5372794954502897841]'
+      value: GDS.Core GDS.Core.Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: 'managedReferences[5372794954502897842]'
+      value: GDS.Core GDS.Core.Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: 'managedReferences[5372794954502897843]'
+      value: GDS.Core GDS.Core.Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
       propertyPath: managedReferences[5372794892367691853].Id
       value: oev71d
       objectReference: {fileID: 0}
@@ -1026,20 +1038,32 @@ PrefabInstance:
       value: oiXcb5
       objectReference: {fileID: 0}
     - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897841].Id
+      value: TDumlX
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897842].Id
+      value: Dh8gCy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897843].Id
+      value: KQtetC
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
       propertyPath: managedReferences[871568053724512358].Item
       value: 5372794892367691853
       objectReference: {fileID: 0}
     - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
       propertyPath: managedReferences[871568053724512359].Item
-      value: 5372794892367691854
+      value: 5372794954502897842
       objectReference: {fileID: 0}
     - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
       propertyPath: managedReferences[871568053724512360].Item
-      value: 5372794892367691855
+      value: 5372794954502897843
       objectReference: {fileID: 0}
     - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
       propertyPath: managedReferences[871568053724512361].Item
-      value: 5372794892367691882
+      value: 5372794954502897841
       objectReference: {fileID: 0}
     - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
       propertyPath: managedReferences[5372794887066353664].Item
@@ -1114,6 +1138,30 @@ PrefabInstance:
       value: Apple
       objectReference: {fileID: 0}
     - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897841].Base
+      value: 
+      objectReference: {fileID: 11400000, guid: a357580fdc812ae4a9ce6cc1917aaeac, type: 2}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897841].Name
+      value: AxeWithPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897842].Base
+      value: 
+      objectReference: {fileID: 11400000, guid: 3ba10d75e0a8291439048f41813981d1, type: 2}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897842].Name
+      value: HelmetWithPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897843].Base
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d3a70777c76dbd40a1f42d1ef27259b, type: 2}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897843].Name
+      value: SwordWithPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
       propertyPath: managedReferences[871568053724512359].Index
       value: 2
       objectReference: {fileID: 0}
@@ -1180,6 +1228,18 @@ PrefabInstance:
     - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
       propertyPath: managedReferences[5372794892367691882].StackSize
       value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897841].StackSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897842].StackSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
+      propertyPath: managedReferences[5372794954502897843].StackSize
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3697290640013063189, guid: 0818152044afe53428bff08e4902ee94, type: 3}
       propertyPath: managedReferences[5372794887066353664].Tags.Array.size
@@ -3104,8 +3164,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 875079190}
-  - component: {fileID: 875079189}
   - component: {fileID: 875079188}
+  - component: {fileID: 875079189}
   m_Layer: 0
   m_Name: FishnetStore
   m_TagString: Untagged
@@ -3185,7 +3245,9 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 875079188}
   _networkObjectCache: {fileID: 0}
+  inventory: {fileID: 1555983409}
   networkBag: {fileID: 1631541557}
+  itemPrefab: {fileID: -1216252096738126970, guid: 9cc97b101790bbf4b9b46467d0643c5d, type: 3}
 --- !u!4 &875079190
 Transform:
   m_ObjectHideFlags: 0
@@ -3960,7 +4022,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 498680469721932877, guid: dc034073f593f0448a968294940ea523, type: 3}
       propertyPath: itemSpawnLayer.m_Bits
-      value: 0
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 498680469721932877, guid: dc034073f593f0448a968294940ea523, type: 3}
       propertyPath: itemSpawnBlockingLayer.m_Bits
@@ -7394,6 +7456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2103555920}
   - component: {fileID: 2103555919}
+  - component: {fileID: 2103555921}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7413,8 +7476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 146a28e9933cd1043b34d51eda4c92eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  ItemBaseCatalog: {fileID: 11400000, guid: 3fedc65560ef8694e93498af909be1bb, type: 2}
-  textField: {fileID: 0}
+  ItemBaseCatalog: {fileID: 11400000, guid: 66b97791a3af7db488a86f26e77ae33a, type: 2}
   inventoryView: {fileID: 1555983409}
   stashView: {fileID: 1631541556}
 --- !u!4 &2103555920
@@ -7432,6 +7494,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2103555921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103555918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2312a4cdfa79b9448b14e15c8857affe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GDS.Common::GDS.Common.SpawnWorldItem
+  WrapperPrefab: {fileID: 6757749344117816647, guid: 4d72e74be1e11ed4e8db3a773698ff5c, type: 3}
+  spawnPoint: {fileID: 0}
+  spawnRadius: 0
+  spawnOffset: {x: 0, y: 0, z: 0}
 --- !u!1001 &2134688783
 PrefabInstance:
   m_ObjectHideFlags: 0
