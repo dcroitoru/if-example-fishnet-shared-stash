@@ -12,11 +12,12 @@ namespace GDS.Examples {
 
     public class Fishnet_Minimal_Store : NetworkStore {
 
+        // current player inventory (client authority)
         [SerializeField] ListBagView inventory;
+        // shared stash (server authority)
         [SerializeField] NetworkListBag networkBag;
-
-        [SerializeField] private NetworkObject itemPrefab;
-
+        // world item prefab (requires WorldItem script)
+        [SerializeField] NetworkObject itemPrefab;
 
         void Awake() { StoreLocator.Register(this); }
 
@@ -38,6 +39,7 @@ namespace GDS.Examples {
 
         // On pick, remove the item from the item from the bag, update the ghost and publish the resulting event
         void OnPickItem(PickItem e) {
+            // if the bag has server authority send a request instead of the usual flow
             if (e.Context.Bag == networkBag.Bag) {
                 RequestPickItem(e.Bag.Name, (e.Slot as ListSlot).Index);
             } else {
@@ -47,15 +49,19 @@ namespace GDS.Examples {
             }
         }
 
+        // a server rpc that performs the action on the server auth bag
+        // RequireOwnership needs to be false, since clients don't own the object
         [ServerRpc(RequireOwnership = false)]
         public void RequestPickItem(string bagId, int slotIndex, NetworkConnection sender = null) {
             if (sender == null) return;
             var item = networkBag.Items.ElementAtOrDefault(slotIndex);
             if (item == null) { Debug.Log($"no item found at index {slotIndex}"); return; }
             networkBag.Items.Set(slotIndex, null);
+            // sending back a response means a successful operation
             ResponsePickItem(sender, item);
         }
 
+        // a client rpc that cleans up the ghost item and publishes a success event (for sfx, vfx)
         [TargetRpc]
         private void ResponsePickItem(NetworkConnection conn, Item item) {
             Ghost.Item = item;
@@ -65,6 +71,7 @@ namespace GDS.Examples {
 
         // On place, add the ghost item to the bag, potentially swapping with the one in the target slot, then publish the resulting event
         void OnPlaceItem(PlaceGhostItem e) {
+            // if the bag has server authority send a request instead of the usual flow
             if (e.Context.Bag == networkBag.Bag) {
                 RequestPlaceItem(e.Context.Bag.Name, (e.Context.Slot as ListSlot).Index, Ghost.Item);
             } else {
@@ -76,7 +83,7 @@ namespace GDS.Examples {
 
         [ServerRpc(RequireOwnership = false)]
         public void RequestPlaceItem(string bagId, int slotIndex, Item item, NetworkConnection sender = null) {
-            // Note: you can treat different bags here
+            // Note: you can switch on bagId and treat different bags here
             var replaced = networkBag.Items[slotIndex];
             networkBag.Items.Set(slotIndex, item);
             ResponsePlaceItem(sender, replaced);
@@ -100,6 +107,9 @@ namespace GDS.Examples {
 
         [ServerRpc(RequireOwnership = false)]
         void RequestSpawnItem(Item item, Vector3 worldPos, NetworkConnection sender = null) {
+            // to successfuly instantiate a prefab and replicate on all clients, the prefab needs to be a NetworkObject            
+            // for this particular example to work, it also needs to be a NetworkWorldItem, which does 2 things: 
+            // stores item data in a SyncVar and adds a click listener
             NetworkObject instance = Instantiate(itemPrefab, worldPos, Quaternion.identity);
             var worldItem = instance.GetComponent<NetworkWorldItem>();
             worldItem.Item.Value = item;
@@ -114,6 +124,8 @@ namespace GDS.Examples {
         }
 
         void OnPickWorldItem(PickWorldItem e) {
+            // picking a world item is server authoritative, but before sending a request
+            // we check that it can fit in player inventory
             var result = inventory.Bag.CanAdd(e.WorldItem.Item);
             if (result is Fail) {
                 Bus.Publish(result);
@@ -125,11 +137,13 @@ namespace GDS.Examples {
         [ServerRpc(RequireOwnership = false)]
         void RequestDespawnItem(Item item, GameObject go, NetworkConnection sender = null) {
             ServerManager.Despawn(go);
+            // after despawning the game object, send a success reponse back to sender
             ResponseDespawnItem(sender, item);
         }
 
         [TargetRpc]
         void ResponseDespawnItem(NetworkConnection sender, Item item) {
+            // at this point the item has successfully despawned (server-side) and can be added to player inventory (client-side)
             Result result = inventory.Bag.Add(item);
             Bus.Publish(result);
 
