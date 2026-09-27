@@ -113,9 +113,13 @@ namespace GDS.Examples {
             Ghost.Reset();
         }
 
-        // TODO: check if item can fit before requesting pick up
         void OnPickWorldItem(PickWorldItem e) {
-            RequestDespawnItem(e.WorldItem.Item, e.WorldItem.GameObject);
+            var result = inventory.Bag.CanAdd(e.WorldItem.Item);
+            if (result is Fail) {
+                Bus.Publish(result);
+            } else {
+                RequestDespawnItem(e.WorldItem.Item, e.WorldItem.GameObject);
+            }
         }
 
         [ServerRpc(RequireOwnership = false)]
