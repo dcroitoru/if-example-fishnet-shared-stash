@@ -76,7 +76,6 @@ namespace GDS.Examples {
 
         [ServerRpc(RequireOwnership = false)]
         public void RequestPlaceItem(string bagId, int slotIndex, Item item, NetworkConnection sender = null) {
-            if (sender == null) return;
             // Note: you can treat different bags here
             var replaced = networkBag.Items[slotIndex];
             networkBag.Items.Set(slotIndex, item);
@@ -94,43 +93,28 @@ namespace GDS.Examples {
         }
 
         void OnDropItem(DropGhostItem e) {
-            Debug.Log("1. OnDropItem");
             if (Ghost.Empty) return;
             if (e.IsOverUi) return;
-
             RequestSpawnItem(Ghost.Item, e.WorldPosition);
         }
 
         [ServerRpc(RequireOwnership = false)]
         void RequestSpawnItem(Item item, Vector3 worldPos, NetworkConnection sender = null) {
-            Debug.Log($"2. RequestSpawnItem on server, sender={sender?.ClientId}");
-
             NetworkObject instance = Instantiate(itemPrefab, worldPos, Quaternion.identity);
             var worldItem = instance.GetComponent<NetworkWorldItem>();
             worldItem.Item.Value = item;
             ServerManager.Spawn(instance);
-            // worldItem.OnClick += OnWorldItemClick;
-
-            // if (sender == null) return;
-            // BroadcastSpawnItem(item, worldPos);
             ResponseSpawnItem(sender);
-        }
-
-        [ObserversRpc]
-        void BroadcastSpawnItem(Item item, Vector3 worldPos) {
-            Debug.Log($"3. BroadcastSpawnItem on client {NetworkManager.ClientManager.Connection.ClientId}, item={item}");
-
-            // Debug.Log($"should spawn item {item}");
-            Bus.Publish(new SpawnWorldItem(item, worldPos));
         }
 
         [TargetRpc]
         void ResponseSpawnItem(NetworkConnection sender) {
+            Bus.Publish(new DropWorldItemSuccess(Ghost.Item));
             Ghost.Reset();
         }
 
+        // TODO: check if item can fit before requesting pick up
         void OnPickWorldItem(PickWorldItem e) {
-            Debug.Log($"should pick world item {e.WorldItem}");
             RequestDespawnItem(e.WorldItem.Item, e.WorldItem.GameObject);
         }
 
