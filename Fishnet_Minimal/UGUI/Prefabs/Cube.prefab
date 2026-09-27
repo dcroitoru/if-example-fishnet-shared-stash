@@ -135,6 +135,7 @@ MonoBehaviour:
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
   - {fileID: 4640641872862091069}
+  - {fileID: 2948769658838074869}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -145,7 +146,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _preventDespawnOnDisconnect: 0
   _defaultDespawnType: 0
-  _initializedTimestamp: -8584111606040433403
+  _initializedTimestamp: -8584111109260148134
   _localLevelOfDetailCalculationType: 0
   _useLevelOfDetail: 0
   _useRootLevelOfDetail: 1
@@ -200,11 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9b4db5bd8bc9e4580e36b20fa6f971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GDS.Examples.NetworkWorldItem
-  _componentIndexCache: 255
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 1282181897373243003}
-  _networkObjectCache: {fileID: 0}
-  Item:
-    Id: tCgx0k
-    Name: 
-    StackSize: 0
-    Base: {fileID: 0}
+  _networkObjectCache: {fileID: 1282181897373243003}
